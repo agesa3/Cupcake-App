@@ -21,13 +21,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.cupcake.databinding.FragmentStartBinding
+import com.example.cupcake.model.OrderViewModel
 
 /**
  * This is the first screen of the Cupcake app. The user can choose how many cupcakes to order.
  */
 class StartFragment : Fragment() {
+    private val sharedViewModel:OrderViewModel by activityViewModels()
 
     // Binding object instance corresponding to the fragment_start.xml layout
     // This property is non-null between the onCreateView() and onDestroyView() lifecycle callbacks,
@@ -58,6 +61,10 @@ class StartFragment : Fragment() {
      * Start an order with the desired quantity of cupcakes and navigate to the next screen.
      */
     fun orderCupcake(quantity: Int) {
+        sharedViewModel.setQuantity(quantity)
+        if(sharedViewModel.hasNoFlavorSet()){
+            sharedViewModel.setFlavor(getString(R.string.vanilla))
+        }
         findNavController().navigate(R.id.action_startFragment_to_flavorFragment)
     }
 
