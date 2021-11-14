@@ -41,45 +41,28 @@ class OrderViewModel : ViewModel() {
         resetOrder()
     }
 
-    /**
-     * Set the quantity of cupcakes for this order.
-     *
-     * @param numberCupcakes to order
-     */
     fun setQuantity(numberCupcakes: Int) {
         _quantity.value = numberCupcakes
         updatePrice()
     }
 
-    /**
-     * Set the flavor of cupcakes for this order. Only 1 flavor can be selected for the whole order.
-     *
-     * @param desiredFlavor is the cupcake flavor as a string
-     */
+
     fun setFlavor(desiredFlavor: String) {
         _flavor.value = desiredFlavor
     }
 
-    /**
-     * Set the pickup date for this order.
-     *
-     * @param pickupDate is the date for pickup as a string
-     */
+
     fun setDate(pickupDate: String) {
         _date.value = pickupDate
         updatePrice()
     }
 
-    /**
-     * Returns true if a flavor has not been selected for the order yet. Returns false otherwise.
-     */
+
     fun hasNoFlavorSet(): Boolean {
         return _flavor.value.isNullOrEmpty()
     }
 
-    /**
-     * Reset the order by using initial default values for the quantity, flavor, date, and price.
-     */
+
     fun resetOrder() {
         _quantity.value = 0
         _flavor.value = ""
@@ -87,9 +70,6 @@ class OrderViewModel : ViewModel() {
         _price.value = 0.0
     }
 
-    /**
-     * Updates the price based on the order details.
-     */
     private fun updatePrice() {
         var calculatedPrice = (quantity.value ?: 0) * PRICE_PER_CUPCAKE
         // If the user selected the first option (today) for pickup, add the surcharge
